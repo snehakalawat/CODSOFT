@@ -1,0 +1,63 @@
+contacts = []
+
+def show_contacts():
+    print("\n--- Contact List ---")
+    for i, c in enumerate(contacts, 1):
+        print(f"{i}. {c['name']} - {c['phone']}")
+
+def search_contact(keyword):
+    found = [c for c in contacts if keyword.lower() in c['name'].lower() or keyword in c['phone']]
+    for c in found:
+        print(f"{c['name']} | {c['phone']} | {c['email']} | {c['address']}")
+    if not found:
+        print("❌ No contact found.")
+
+def menu():
+    print("\n--- Contact Book ---")
+    print("1. Add Contact")
+    print("2. View Contacts")
+    print("3. Search Contact")
+    print("4. Update Contact")
+    print("5. Delete Contact")
+    print("6. Exit")
+
+while True:
+    menu()
+    choice = input("Choose an option: ")
+
+    if choice == '1':
+        name = input("Name: ")
+        phone = input("Phone: ")
+        email = input("Email: ")
+        address = input("Address: ")
+        contacts.append({"name": name, "phone": phone, "email": email, "address": address})
+        print("✅ Contact added.")
+    elif choice == '2':
+        show_contacts()
+    elif choice == '3':
+        keyword = input("Enter name or phone to search: ")
+        search_contact(keyword)
+    elif choice == '4':
+        show_contacts()
+        num = int(input("Enter contact number to update: ")) - 1
+        if 0 <= num < len(contacts):
+            contacts[num]['name'] = input("New name: ")
+            contacts[num]['phone'] = input("New phone: ")
+            contacts[num]['email'] = input("New email: ")
+            contacts[num]['address'] = input("New address: ")
+            print("✅ Contact updated.")
+        else:
+            print("❗ Invalid number.")
+    elif choice == '5':
+        show_contacts()
+        num = int(input("Enter contact number to delete: ")) - 1
+        if 0 <= num < len(contacts):
+            contacts.pop(num)
+            print("✅ Contact deleted.")
+        else:
+            print("❗ Invalid number.")
+    elif choice == '6':
+        print("👋 Exiting Contact Book.")
+        break
+    else:
+        print("❗ Invalid choice.")
