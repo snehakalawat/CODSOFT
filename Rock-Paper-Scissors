@@ -1,0 +1,39 @@
+import random
+
+options = ["rock", "paper", "scissors"]
+user_score = 0
+comp_score = 0
+
+def get_winner(user, comp):
+    if user == comp:
+        return "tie"
+    elif (user == "rock" and comp == "scissors") or \
+         (user == "scissors" and comp == "paper") or \
+         (user == "paper" and comp == "rock"):
+        return "user"
+    else:
+        return "comp"
+
+while True:
+    user_choice = input("\nChoose rock, paper, or scissors (or 'exit' to quit): ").lower()
+    if user_choice == 'exit':
+        break
+    if user_choice not in options:
+        print("❗ Invalid choice.")
+        continue
+
+    comp_choice = random.choice(options)
+    print(f"🧍 You chose: {user_choice}")
+    print(f"🤖 Computer chose: {comp_choice}")
+
+    winner = get_winner(user_choice, comp_choice)
+    if winner == "tie":
+        print("🤝 It's a tie!")
+    elif winner == "user":
+        user_score += 1
+        print("🎉 You win!")
+    else:
+        comp_score += 1
+        print("💻 Computer wins!")
+
+    print(f"Score => You: {user_score} | Computer: {comp_score}")
